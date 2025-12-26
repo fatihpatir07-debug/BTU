@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tasarım Akademisi | Fatih PATIR</title>
+    
+    <!-- PWA & Mobil Uygulama Meta Etiketleri -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Tasarım Akademi">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" id="themeMeta" content="#1e40af">
+    
+    <!-- Uygulama İkonları (Web App Icon) -->
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3534/3534033.png">
+    <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/3534/3534033.png">
+
+    <!-- Tailwind CSS ve FontAwesome İkon Seti -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap');
+        
+        :root {
+            --app-primary: #1e40af;
+            --app-bg: #f2f2f7;
+            --app-card-bg: #ffffff;
+            --app-text: #111827;
+            --app-subtext: #6b7280;
+            --app-accent: #007AFF;
+        }
+
+        [data-theme='dark'] {
+            --app-primary: #3b82f6;
+            --app-bg: #000000;
+            --app-card-bg: #1c1c1e;
+            --app-text: #ffffff;
+            --app-subtext: #a1a1aa;
+            --app-accent: #3b82f6;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--app-bg); 
+            color: var(--app-text);
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            overflow-x: hidden;
+            transition: background-color 0.3s ease;
+        }
+
+        .glass-nav {
+            background: var(--app-card-bg);
+            opacity: 0.98;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 0.5px solid rgba(0,0,0,0.1);
+        }
+
+        /* Kart Çevirme Animasyonu */
+        .perspective-1000 { perspective: 1000px; }
+        .card-inner {
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+        .card-flipped .card-inner { transform: rotateY(180deg); }
+        .card-front, .card-back {
+            backface-visibility: hidden;
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+        }
+        .card-back { transform: rotateY(180deg); }
+
+        .active-tab { color: var(--app-accent) !important; }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .view-transition { animation: slideUp 0.4s ease-out; }
+
+        .primary-bg { background-color: var(--app-primary); }
+        .primary-text { color: var(--app-primary); }
+        .card-bg { background-color: var(--app-card-bg); }
+        .sub-text { color: var(--app-subtext); }
+
+        ::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="pb-32">
+
+    <!-- Uygulama Üst Bilgi Çubuğu -->
+    <header id="appHeader" class="card-bg/80 backdrop-blur-md sticky top-0 z-50 border-b border-gray-100/10 p-6 pt-10">
+        <div class="flex justify-between items-end">
+            <div>
+                <p class="primary-text font-bold text-[10px] uppercase tracking-[0.2em] mb-1">Nene Hatun MTAL</p>
+                <h1 id="viewTitle" class="text-2xl font-black leading-tight">Akademi</h1>
+            </div>
+            <div class="flex flex-col items-end space-y-2">
+                <div class="primary-bg text-white px-3 py-1.5 rounded-2xl shadow-lg flex items-center space-x-2 active:scale-95 transition-transform">
+                    <i class="fas fa-bolt text-yellow-300 text-sm"></i>
+                    <span id="xpVal" class="font-bold text-sm">0</span>
+                </div>
+            </div>
+        </div>
+        <div class="mt-5 bg-gray-200/20 h-1.5 rounded-full overflow-hidden">
+            <div id="progBar" class="primary-bg h-full w-0 transition-all duration-1000 ease-out"></div>
+        </div>
+    </header>
+
+    <!-- Dinamik İçerik Alanı -->
+    <main id="mainView" class="p-5 min-h-[70vh]"></main>
+
+    <!-- Alt Navigasyon Menüsü -->
+    <nav class="fixed bottom-0 left-0 right-0 glass-nav px-6 pb-10 pt-4 flex justify-between items-center z-50 rounded-t-[2.5rem] shadow-2xl">
+        <button onclick="renderHome()" class="nav-btn flex flex-col items-center space-y-1 sub-text" id="nav-0">
+            <i class="fas fa-book-open text-xl"></i>
+            <span class="text-[10px] font-bold">Dersler</span>
+        </button>
+        <button onclick="renderCards()" class="nav-btn flex flex-col items-center space-y-1 sub-text" id="nav-1">
+            <i class="fas fa-clone text-xl"></i>
+            <span class="text-[10px] font-bold">Kartlar</span>
+        </button>
+        <button onclick="renderQuiz()" class="nav-btn flex flex-col items-center space-y-1 sub-text" id="nav-2">
+            <i class="fas fa-gamepad text-xl"></i>
+            <span class="text-[10px] font-bold">Sınav</span>
+        </button>
+        <button onclick="renderProfile()" class="nav-btn flex flex-col items-center space-y-1 sub-text" id="nav-3">
+            <i class="fas fa-palette text-xl"></i>
+            <span class="text-[10px] font-bold">Ayarlar</span>
+        </button>
+    </nav>
+
+    <script>
+        // Tüm Dönem Müfredatı ve Sınav Soruları
+        const curriculum = [
+            { 
+                id: 0, exam: "1. Dönem 1. Yazılı", title: "Teknik Resim Temelleri", pages: "S. 16-35", color: "bg-emerald-500", icon: "fa-pencil-ruler", 
+                cards: [
+                    { t: "HB Kalem", d: "Yazı ve genel çizimlerde kullanılan orta sertlikte kalemdir.", icon: "fa-pencil" },
+                    { t: "Sürekli Kalın Çizgi", d: "Görünen kenar ve çevrelerin çiziminde kullanılır.", icon: "fa-minus" },
+                    { t: "A4 Kağıdı", d: "210x297 mm boyutlarında standart teknik resim kağıdıdır.", icon: "fa-file-lines" }
+                ],
+                quiz: [
+                    { q: "Teknik resimde ölçü çizgileri hangi kalemle çizilir?", a: ["Sürekli Kalın", "Sürekli İnce", "Kesik Çizgi", "Noktalı İnce"], c: 1 }
+                ]
+            },
+            { 
+                id: 1, exam: "1. Dönem 2. Yazılı", title: "İzdüşüm & Tinkercad", pages: "S. 36-61", color: "bg-orange-500", icon: "fa-cubes",
+                cards: [
+                    { t: "Ctrl + G", d: "Seçili nesneleri gruplandırarak tek bir gövde haline getirir.", icon: "fa-object-group" },
+                    { t: "L (Align)", d: "Nesneleri seçilen eksende hizalamak için kullanılır.", icon: "fa-align-center" },
+                    { t: "W (Workplane)", d: "Yeni nesne eklemek için çalışma düzlemini değiştirir.", icon: "fa-border-all" }
+                ],
+                quiz: [
+                    { q: "Tinkercad'de delik açmak için hangi işlem yapılır?", a: ["Sadece silme", "Hole yapıp gruplandırma", "Renk değiştirme", "Shift tuşu"], c: 1 }
+                ]
+            },
+            { 
+                id: 2, exam: "2. Dönem 1. Yazılı", title: "Fusion 360 Giriş", pages: "S. 62-100", color: "bg-blue-600", icon: "fa-drafting-pencil",
+                cards: [
+                    { t: "Extrude (E)", d: "2B taslaklara derinlik vererek 3B katı modeller oluşturur.", icon: "fa-expand" },
+                    { t: "Fillet (F)", d: "Keskin kenarları yuvarlayarak estetik ve dayanıklılık sağlar.", icon: "fa-circle" },
+                    { t: "Sketch (S)", d: "Yeni bir 2B taslak oluşturmak için kullanılan temel komut.", icon: "fa-pen-nib" }
+                ],
+                quiz: [
+                    { q: "Fusion 360'ta derinlik verme komutu hangisidir?", a: ["Sketch", "Joint", "Extrude", "Revolve"], c: 2 }
+                ]
+            },
+            { 
+                id: 3, exam: "2. Dönem 2. Yazılı", title: "Montaj & Animasyon", pages: "S. 101-140", color: "bg-purple-600", icon: "fa-cogs",
+                cards: [
+                    { t: "Joint (J)", d: "Parçalar arasında hareketli veya sabit bağlantılar kurar.", icon: "fa-link" },
+                    { t: "Ground", d: "Bir bileşeni uzayda sabitler, hareket etmesini engeller.", icon: "fa-anchor" },
+                    { t: "Revolute", d: "Parçanın bir eksen etrafında dönmesini sağlayan montaj türüdür.", icon: "fa-sync" },
+                    { t: "Slider", d: "Parçanın bir kanal boyunca ileri-geri hareketini sağlar.", icon: "fa-arrows-left-right" }
+                ],
+                quiz: [
+                    { q: "Bir parçayı montajda tamamen sabitlemek için hangisi kullanılır?", a: ["Rigid", "Ground", "Lock", "Fix"], c: 1 },
+                    { q: "Dönen bir çark için hangi Joint tipi uygundur?", a: ["Slider", "Rigid", "Revolute", "Ball"], c: 2 }
+                ]
+            }
+        ];
+
+        let state = {
+            xp: parseInt(localStorage.getItem('fatih_xp')) || 0,
+            activeUnit: 0,
+            theme: localStorage.getItem('fatih_theme') || 'light'
+        };
+
+        const view = document.getElementById('mainView');
+
+        function setTheme(theme) {
+            state.theme = theme;
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('fatih_theme', theme);
+        }
+
+        function addXP(v) {
+            state.xp += v;
+            document.getElementById('xpVal').innerText = state.xp;
+            document.getElementById('progBar').style.width = Math.min(100, (state.xp / 1000) * 100) + "%";
+            localStorage.setItem('fatih_xp', state.xp);
+        }
+
+        // Ana Menü Görüntüleme
+        function renderHome() {
+            setNav(0);
+            document.getElementById('viewTitle').innerText = "Akademi";
+            let html = `<div class="view-transition space-y-4">`;
+            curriculum.forEach((u, i) => {
+                html += `
+                <div onclick="state.activeUnit=${i}; renderUnitDetail()" class="card-bg p-5 rounded-[2rem] shadow-sm border border-gray-100/10 flex items-center space-x-4 active:scale-95 transition-all">
+                    <div class="${u.color} w-14 h-14 rounded-2xl flex items-center justify-center text-white text-2xl">
+                        <i class="fas ${u.icon}"></i>
+                    </div>
+                    <div class="flex-1">
+                        <p class="sub-text text-[9px] font-black uppercase tracking-widest">${u.exam}</p>
+                        <h3 class="font-bold text-lg leading-tight">${u.title}</h3>
+                    </div>
+                    <i class="fas fa-chevron-right opacity-20"></i>
+                </div>`;
+            });
+            view.innerHTML = html + `</div>`;
+        }
+
+        // Ünite Detay Görünümü
+        function renderUnitDetail() {
+            const u = curriculum[state.activeUnit];
+            view.innerHTML = `
+            <div class="view-transition space-y-6">
+                <button onclick="renderHome()" class="primary-text font-bold text-sm"><i class="fas fa-arrow-left mr-2"></i> Derslere Dön</button>
+                <div class="${u.color} p-8 rounded-[3rem] text-white shadow-xl relative overflow-hidden">
+                    <i class="fas ${u.icon} absolute -right-4 -bottom-4 text-9xl opacity-10"></i>
+                    <h2 class="text-2xl font-black relative z-10">${u.title}</h2>
+                    <p class="text-white/70 text-sm relative z-10">${u.exam}</p>
+                </div>
+                <div class="grid grid-cols-1 gap-4">
+                    <button onclick="renderCards()" class="card-bg p-6 rounded-3xl flex items-center justify-center space-x-4 border border-gray-100/10 shadow-sm active:bg-gray-50 transition-all">
+                        <div class="w-12 h-12 bg-blue-500/10 primary-text rounded-2xl flex items-center justify-center text-xl"><i class="fas fa-clone"></i></div>
+                        <span class="font-bold">Bilgi Kartları</span>
+                    </button>
+                    <button onclick="renderQuiz()" class="card-bg p-6 rounded-3xl flex items-center justify-center space-x-4 border border-gray-100/10 shadow-sm active:bg-gray-50 transition-all">
+                        <div class="w-12 h-12 bg-orange-500/10 text-orange-500 rounded-2xl flex items-center justify-center text-xl"><i class="fas fa-vial"></i></div>
+                        <span class="font-bold">Sınav Simülatörü</span>
+                    </button>
+                </div>
+            </div>`;
+        }
+
+        // Flaş Kartlar Görünümü
+        function renderCards() {
+            setNav(1);
+            const u = curriculum[state.activeUnit];
+            let html = `<div class="view-transition space-y-4">
+                <div class="mb-2 px-2 flex justify-between items-center">
+                    <span class="text-xs font-bold opacity-50 uppercase">${u.title}</span>
+                </div>`;
+            u.cards.forEach(c => {
+                html += `
+                <div class="relative h-44 perspective-1000" onclick="this.classList.toggle('card-flipped'); addXP(1);">
+                    <div class="card-inner w-full h-full cursor-pointer">
+                        <div class="card-front card-bg rounded-[2.5rem] shadow-sm border border-gray-100/10 p-8 flex flex-col items-center justify-center">
+                            <i class="fas ${c.icon} text-4xl primary-text mb-4"></i>
+                            <h3 class="text-xl font-bold">${c.t}</h3>
+                        </div>
+                        <div class="card-back primary-bg rounded-[2.5rem] p-8 flex items-center justify-center text-center text-white">
+                            <p class="text-sm font-medium leading-relaxed">${c.d}</p>
+                        </div>
+                    </div>
+                </div>`;
+            });
+            view.innerHTML = html + `</div>`;
+        }
+
+        // Sınav Görünümü
+        function renderQuiz() {
+            setNav(2);
+            loadQuizQ(0);
+        }
+
+        function loadQuizQ(idx) {
+            const u = curriculum[state.activeUnit];
+            if(idx >= u.quiz.length) {
+                view.innerHTML = `<div class="view-transition card-bg p-10 rounded-[3rem] text-center space-y-4">
+                    <div class="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto text-3xl">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h2 class="text-2xl font-black">Harika İş!</h2>
+                    <p class="sub-text">Bu ünitenin sınavını başarıyla tamamladın ve 50 XP kazandın.</p>
+                    <button onclick="renderHome()" class="w-full primary-bg text-white py-4 rounded-2xl font-bold">Derslere Dön</button>
+                </div>`;
+                return;
+            }
+            const q = u.quiz[idx];
+            view.innerHTML = `
+            <div class="view-transition space-y-6">
+                <div class="card-bg p-8 rounded-[2.5rem] shadow-sm border-l-4 border-blue-600">
+                    <p class="text-[10px] font-black primary-text uppercase mb-2">Soru ${idx + 1}</p>
+                    <h3 class="text-lg font-bold leading-tight">${q.q}</h3>
+                </div>
+                <div class="space-y-3">
+                    ${q.a.map((opt, i) => `
+                        <button onclick="checkAnswer(${idx}, ${i})" class="w-full text-left p-5 rounded-2xl card-bg border border-gray-100/10 font-bold active:scale-95 transition-all flex items-center space-x-4">
+                            <span class="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center text-xs opacity-50">${String.fromCharCode(65+i)}</span>
+                            <span>${opt}</span>
+                        </button>
+                    `).join('')}
+                </div>
+            </div>`;
+        }
+
+        window.checkAnswer = (qIdx, choice) => {
+            if(choice === curriculum[state.activeUnit].quiz[qIdx].c) {
+                addXP(50);
+                loadQuizQ(qIdx + 1);
+            } else {
+                alert("Yanlış cevap! Bilgi kartlarını tekrar gözden geçirmeye ne dersin?");
+            }
+        }
+
+        // Ayarlar / Profil Görünümü
+        function renderProfile() {
+            setNav(3);
+            view.innerHTML = `
+            <div class="view-transition space-y-6">
+                <div class="card-bg p-8 rounded-[3rem] flex items-center space-x-4 shadow-sm">
+                    <div class="w-16 h-16 primary-bg text-white rounded-full flex items-center justify-center text-2xl shadow-lg">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-black italic">Öğrenci Paneli</h2>
+                        <p class="sub-text text-xs font-bold uppercase tracking-wider">${state.xp} Toplam XP</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <button onclick="setTheme('light')" class="card-bg p-5 rounded-3xl border border-blue-500/30 flex flex-col items-center">
+                        <div class="w-8 h-8 bg-blue-600 rounded-full mb-2"></div>
+                        <span class="text-xs font-bold">Aydınlık</span>
+                    </button>
+                    <button onclick="setTheme('dark')" class="bg-zinc-900 p-5 rounded-3xl border border-zinc-800 flex flex-col items-center">
+                        <div class="w-8 h-8 bg-zinc-700 rounded-full mb-2"></div>
+                        <span class="text-xs font-bold text-white">Karanlık</span>
+                    </button>
+                </div>
+                <div class="bg-slate-900 p-8 rounded-[2.5rem] text-white text-center shadow-xl">
+                    <p class="text-[10px] opacity-40 uppercase tracking-[0.3em] mb-2">Eğitmen & Geliştirici</p>
+                    <h4 class="font-bold text-lg">Fatih PATIR</h4>
+                    <p class="text-blue-400 text-xs mt-1">Korkuteli Nene Hatun MTAL</p>
+                </div>
+            </div>`;
+        }
+
+        function setNav(idx) {
+            document.querySelectorAll('.nav-btn').forEach((b, i) => b.classList.toggle('active-tab', i === idx));
+        }
+
+        // Uygulama Başlatıcı
+        window.onload = () => {
+            setTheme(state.theme);
+            addXP(0);
+            renderHome();
+        };
+    </script>
+</body>
+</html>
