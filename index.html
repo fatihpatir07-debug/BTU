@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BTU | Korkuteli Nene Hatun MTAL</title>
+    <title>BTU | Bilgisayarlı Tasarım Uygulamaları</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -12,30 +12,38 @@
 <body class="theme-1">
     <div id="app">
         <header>
+            <div class="school-header">
+                <h1>BİLGİSAYARLI TASARIM UYGULAMALARI</h1>
+                <p style="text-align: center; font-weight: 600; text-transform: uppercase; letter-spacing: 2px;">9.
+                    Sınıf Yazılı Hazırlık</p>
+            </div>
             <div id="theme-picker">
                 <div class="theme-btn" style="background:#fff" onclick="setTheme(1)"></div>
                 <div class="theme-btn" style="background:#0ea5e9" onclick="setTheme(2)"></div>
                 <div class="theme-btn" style="background:#f97316" onclick="setTheme(3)"></div>
             </div>
-            <div class="school-header">
-                <h1>BTU TASARIM</h1>
-                <p>Korkuteli Nene Hatun MTAL</p>
-            </div>
         </header>
+
+        <nav>
+            <button id="btn-home" class="nav-item"><i>🏠</i> GİRİŞ</button>
+            <button id="btn-cards" class="nav-item"><i>🗂️</i> KARTLAR</button>
+            <button id="btn-quiz" class="nav-item"><i>📝</i> TEST</button>
+            <button id="btn-info" class="nav-item"><i>ℹ️</i> BİLGİ</button>
+        </nav>
 
         <main id="main-content">
             <!-- Giriş -->
             <section id="welcome" class="view">
                 <div class="hero-card">
-                    <h2 style="font-size: 1.8rem; margin-bottom: 10px;">Hoş Geldin!</h2>
-                    <p style="font-size: 1.2rem; line-height: 1.4;">Tinkercad 1. Dönem 2. Yazılı portalı. Alt menüden
-                        Kartlar'a bas ve öğrenmeye başla!</p>
+                    <h2 style="margin-bottom: 10px;">Hoş Geldin!</h2>
+                    <p>Mekanik tasarım dünyasına hoş geldin! Bu portal, Tinkercad sınavından 100 alabilmen için
+                        hazırlandı.</p>
                 </div>
 
                 <div class="stats-grid">
                     <div class="stat-box">
                         <span class="stat-val" id="learned-count">0</span>
-                        <span class="stat-lbl">Çalışılan</span>
+                        <span class="stat-lbl">Kart Bakıldı</span>
                     </div>
                     <div class="stat-box">
                         <span class="stat-val" id="quiz-score">0</span>
@@ -43,28 +51,58 @@
                     </div>
                 </div>
 
-                <div style="margin-top: 40px; text-align: center;">
-                    <img src="logo.png" style="width: 140px; border-radius: 20px; border: 2px solid white;"
+                <div style="text-align: center; margin: 30px 0;">
+                    <img src="logo.png"
+                        style="width: 140px; border-radius: 25px; border: 2px solid rgba(255,255,255,0.2); box-shadow: 0 10px 30px rgba(0,0,0,0.5);"
                         onerror="this.style.display='none'">
+                    <p style="margin-top: 15px; font-weight: 800; font-size: 1.1rem; opacity: 0.9;">Korkuteli Nene Hatun
+                        MTAL</p>
                 </div>
             </section>
 
-            <!-- Kartlar Sayfası -->
+            <!-- Kartlar -->
             <section id="cards" class="view"></section>
 
-            <!-- Test Sayfası -->
+            <!-- Test -->
             <section id="quiz" class="view"></section>
+
+            <!-- Bilgi / Kurulum -->
+            <section id="info" class="view">
+                <div class="info-section">
+                    <div class="info-card">
+                        <h3>👨‍🏫 GELİŞTİRİCİ BİLGİSİ</h3>
+                        <p><strong>Ad Soyad:</strong> Fatih PATIR</p>
+                        <p><strong>Ünvan:</strong> Bilgisayar Öğretmeni</p>
+                        <p><strong>Okul:</strong> Korkuteli Nene Hatun MTAL</p>
+                        <p style="margin-top: 10px;">
+                            <a href="https://fatihpatir.github.io/web" target="_blank"
+                                style="color: var(--primary); font-weight: 700;">🌐 Web Sitemi Ziyaret Et</a>
+                        </p>
+                    </div>
+
+                    <div class="info-card">
+                        <h3>📲 UYGULAMA OLARAK YÜKLE</h3>
+                        <p style="margin-bottom: 15px;">Bu uygulamayı telefonuna bir uygulama gibi yükleyerek
+                            internetsiz de kullanabilirsin.</p>
+                        <div class="install-guide">
+                            <div class="guide-step">
+                                <div class="step-num">1</div>
+                                <p><strong>Android:</strong> Chrome'da sağ üstteki 3 noktaya bas ve "Uygulamayı Yükle"
+                                    de.</p>
+                            </div>
+                            <div class="guide-step">
+                                <div class="step-num">2</div>
+                                <p><strong>iPhone:</strong> Safari'de alttaki "Paylaş" ikonuna bas ve "Ana Ekrana Ekle"
+                                    seçeneğini seç.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </main>
 
-        <nav>
-            <button id="btn-home" class="nav-item"> Giriş </button>
-            <button id="btn-cards" class="nav-item"> Kartlar </button>
-            <button id="btn-quiz" class="nav-item"> Test </button>
-            <button id="btn-info" class="nav-item"> Bilgi </button>
-        </nav>
-
         <footer>
-            Geliştiren: <a href="https://fatihpatir.github.io/web" target="_blank">Fatih PATIR</a>
+            Tasarım & Yazılım: <a href="https://fatihpatir.github.io/web" target="_blank">Fatih PATIR</a> © 2024
         </footer>
     </div>
 

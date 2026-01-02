@@ -17,62 +17,56 @@ const content = {
         { q: "Tümünü Sığdır (Yakınlaştır):", a: "F tuşu" }
     ],
     quizzes: [
-        { q: "Gruplandırma kısayolu nedir?", options: ["Ctrl+G", "Ctrl+D", "Ctrl+C", "L"], correct: 0 },
-        { q: "Hassas ölçüm yapan araç?", options: ["Hizala", "Cetvel", "Ayna", "Küp"], correct: 1 },
-        { q: "Hizalama tuşu hangisidir?", options: ["L", "M", "W", "R"], correct: 0 },
-        { q: "Aynalama tuşu hangisidir?", options: ["L", "M", "W", "R"], correct: 1 },
-        { q: "Ekrana her şeyi sığdırma (odaklama) tuşu?", options: ["F", "G", "H", "J"], correct: 0 }
+        { q: "Tinkercad'de nesneleri gruplandırmak için hangi kısayol kullanılır?", options: ["Ctrl+G", "Ctrl+D", "Ctrl+C", "L"], correct: 0 },
+        { q: "Nesnelerin birbirine olan uzaklığını gösteren hassas araç?", options: ["Hizala", "Cetvel", "Ayna", "Küp"], correct: 1 },
+        { q: "Hizalama komutunun kısayolu nedir?", options: ["L", "M", "W", "R"], correct: 0 },
+        { q: "Seçili nesneyi tam tersine çevirme (yansıma) tuşu?", options: ["L", "M", "W", "R"], correct: 1 },
+        { q: "Basılan yüzeyi zemin yapan araç (Workplane)?", options: ["W", "R", "F", "D"], correct: 0 }
     ]
 };
 
 let currentIndex = 0;
 let quizScore = 0;
 
-// Initialize
 document.addEventListener('DOMContentLoaded', () => {
     initButtons();
     updateStats();
-    // Default to welcome
     showView('welcome');
 });
 
 function initButtons() {
-    const btnHome = document.getElementById('btn-home');
-    const btnCards = document.getElementById('btn-cards');
-    const btnQuiz = document.getElementById('btn-quiz');
-    const btnInfo = document.getElementById('btn-info');
-
-    if (btnHome) btnHome.onclick = () => showView('welcome');
-    if (btnCards) btnCards.onclick = () => { currentIndex = 0; showView('cards'); renderCard(); };
-    if (btnQuiz) btnQuiz.onclick = () => { currentIndex = 0; quizScore = 0; showView('quiz'); renderQuiz(); };
-    if (btnInfo) btnInfo.onclick = () => alert("TİNKERCAD HAZIRLIK PORTALI\nGeliştiren: Fatih PATIR\nfatihpatir.github.io/web");
+    const ids = ['home', 'cards', 'quiz', 'info'];
+    ids.forEach(id => {
+        const btn = document.getElementById('btn-' + id);
+        if (btn) {
+            btn.onclick = () => {
+                if (id === 'cards') { currentIndex = 0; renderCard(); }
+                if (id === 'quiz') { currentIndex = 0; quizScore = 0; renderQuiz(); }
+                showView(id);
+            };
+        }
+    });
 }
 
 function showView(id) {
-    // Hide all views
     document.querySelectorAll('.view').forEach(v => {
         v.style.display = 'none';
         v.classList.remove('active');
     });
-
-    // Deactivate all nav buttons
     document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
 
     const target = document.getElementById(id);
     if (target) {
         target.style.display = 'block';
-        // Minor delay for animation to catch up
-        setTimeout(() => target.classList.add('active'), 20);
-
+        setTimeout(() => target.classList.add('active'), 10);
         const btn = document.getElementById('btn-' + id);
         if (btn) btn.classList.add('active');
     }
 }
 
-window.renderCard = function () {
+function renderCard() {
     const container = document.getElementById('cards');
     const item = content.flashcards[currentIndex];
-
     container.innerHTML = `
         <div class="hero-card">
             <h2 style="font-size:1.2rem; margin-bottom:0">Flash Kart ${currentIndex + 1} / ${content.flashcards.length}</h2>
@@ -80,20 +74,20 @@ window.renderCard = function () {
         <div id="card-container">
             <div class="flashcard" onclick="this.classList.toggle('flipped')">
                 <div class="card-face card-front">
-                    <p style="font-size:1.5rem; font-weight:800; color:#fff">${item.q}</p>
-                    <span style="margin-top:20px; font-size:0.9rem; opacity:0.8; color:#aaa">Cevap için kartı çevir</span>
+                    <p>${item.q}</p>
+                    <span>CEVAP İÇİN ÇEVİR</span>
                 </div>
                 <div class="card-face card-back">
-                    <p style="font-size:1.3rem; font-weight:700; color:#000">${item.a}</p>
+                    <p>${item.a}</p>
                 </div>
             </div>
         </div>
         <div class="controls">
-            <button class="btn btn-alt" onclick="moveCard(-1)">◀ Geri</button>
-            <button class="btn btn-main" onclick="moveCard(1)">Sıradaki ▶</button>
+            <button class="btn btn-alt" onclick="moveCard(-1)">◀ GERİ</button>
+            <button class="btn btn-main" onclick="moveCard(1)">İLERİ ▶</button>
         </div>
     `;
-};
+}
 
 window.moveCard = (dir) => {
     currentIndex = (currentIndex + dir + content.flashcards.length) % content.flashcards.length;
@@ -114,8 +108,8 @@ function renderQuiz() {
         container.innerHTML = `
             <div class="hero-card" style="text-align:center">
                 <h2>Test Bitti!</h2>
-                <p style="font-size:2rem; margin:15px 0;">🎯 ${quizScore} / ${content.quizzes.length}</p>
-                <button class="btn btn-main" style="width:100%" onclick="resetQuiz()">Tekrar Başla</button>
+                <p style="font-size:2rem; margin:20px 0;">🎯 ${quizScore} / ${content.quizzes.length}</p>
+                <button class="btn btn-main" style="width:100%" onclick="resetQuiz()">TEKRAR BAŞLA</button>
             </div>`;
         return;
     }
@@ -125,11 +119,11 @@ function renderQuiz() {
         <div class="hero-card">
             <h2 style="font-size:1.2rem; margin-bottom:0">Soru ${currentIndex + 1} / ${content.quizzes.length}</h2>
         </div>
-        <div class="stat-box" style="margin-bottom:20px; background:rgba(255,255,255,0.1)">
-            <p style="font-size:1.4rem; font-weight:800; color:#fff">${q.q}</p>
+        <div class="stat-box" style="margin-bottom:20px; border-color:var(--primary)">
+            <p style="font-size:1.4rem; font-weight:800;">${q.q}</p>
         </div>
         ${q.options.map((opt, i) => `
-            <button class="btn btn-alt" style="width:100%; text-align:left; margin-bottom:12px; font-size:1.1rem;" id="opt-${i}" onclick="checkAnswer(${i})">
+            <button class="btn btn-alt" style="width:100%; text-align:left; margin-bottom:12px;" id="opt-${i}" onclick="checkAnswer(${i})">
                 ${opt}
             </button>
         `).join('')}
@@ -141,26 +135,22 @@ window.checkAnswer = (idx) => {
     const btns = document.querySelectorAll('#quiz .btn');
     btns.forEach(b => b.disabled = true);
 
-    const selectedBtn = document.getElementById('opt-' + idx);
     if (idx === q.correct) {
-        selectedBtn.classList.add('correct');
+        document.getElementById('opt-' + idx).classList.add('correct');
         quizScore++;
     } else {
-        selectedBtn.classList.add('wrong');
+        document.getElementById('opt-' + idx).classList.add('wrong');
         document.getElementById('opt-' + q.correct).classList.add('correct');
     }
 
     setTimeout(() => {
         currentIndex++;
         renderQuiz();
-    }, 1500);
+    }, 1200);
 };
 
 window.resetQuiz = () => { currentIndex = 0; quizScore = 0; renderQuiz(); };
-window.setTheme = (n) => {
-    document.body.className = 'theme-' + n;
-    localStorage.setItem('btu_theme', n);
-};
+window.setTheme = (n) => { document.body.className = 'theme-' + n; };
 
 function updateStats() {
     const l = localStorage.getItem('btu_learned') || 0;
