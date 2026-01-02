@@ -1,243 +1,170 @@
 const content = {
     flashcards: [
-        // Soru - Cevap Bölümü (PDF Sayfa 1)
         { q: "\"Izgarayı Düzenle\" (Edit Grid) seçeneği ne işe yarar?", a: "Çalışma alanının boyutlarını ve ölçü birimini (mm/inç) ayarlar." },
         { q: "Beyaz köşe tutamaçları ile siyah kenar tutamaçları farkı nedir?", a: "Beyazlar en ve boyu aynı anda, siyahlar ise tek bir yöndeki boyutu değiştirir." },
         { q: "\"Duplicate\" (Ctrl+D) komutunun kopyala-yapıştırdan farkı nedir?", a: "Hareket ve döndürme işlemlerini hafızaya alır, tekrar basıldığında hareketi otomatik tekrarlar." },
         { q: "Gruplandırılan farklı renkteki nesnelerin renklerini nasıl koruruz?", a: "\"Katı\" menüsünden \"Çok Renkli\" (Multicolor) seçeneği işaretlenir." },
         { q: "Bir nesneyi \"Delik\" (Hole) yapmak boşluk için yeterli midir?", a: "Hayır. Delik nesne ile katı nesne birlikte seçilip \"Gruplandır\" komutu uygulanmalıdır." },
         { q: "\"Hizala\" (Align) komutundaki siyah noktalar ne anlama gelir?", a: "Uçtakiler kenara yaslar, ortadakiler merkezde hizalar." },
-        { q: "\"Cetvel\" (Ruler) aracı tasarımda ne sağlar?", a: "Nesnelerin birbirine uzaklığını ve koordinatlarını rakamsal gösterir, hassas yerleştirme sağlar." },
-        { q: "\"Aynala\" (Mirror) komutu hangi amaçla kullanılır?", a: "Nesnenin seçilen eksende tam tersi yansımasını oluşturur. Simetrik parçalar için kullanılır." },
-        { q: "\"Çalışma Düzlemi\" (Workplane) bir yüzeye yerleştirilirse ne olur?", a: "O yüzey yeni ana zemin olur. Yeni nesneler doğrudan o yüzeye yerleşir." },
-        { q: "Tasarımdaki en yaygın 3D yazıcı dosya formatı nedir?", a: ".STL formatıdır." },
-
-        // Araçlar ve Kısayollar (PDF Sayfa 2)
-        { q: "Kopyala - Yapıştır kısayolları nelerdir?", a: "Kopyala: Ctrl+C | Yapıştır: Ctrl+V" },
-        { q: "Geri Al - İleri Al kısayolları nelerdir?", a: "Geri Al: Ctrl+Z | İleri Al: Ctrl+Y" },
-        { q: "Gruplandır - Grubu Çöz kısayolları nelerdir?", a: "Gruplandır: Ctrl+G | Grubu Çöz: Ctrl+Shift+G" },
-        { q: "Hizala ve Aynala kısayolları nelerdir?", a: "Hizala: L | Aynala: M" },
-        { q: "Çalışma Düzlemi (Workplane) ve Cetvel kısayolları nelerdir?", a: "Çalışma Düzlemi: W | Cetvel: R" },
-        { q: "Tümünü Sığdır (Fit all) kısayolu nedir?", a: "F tuşu. Seçili nesneyi ekrana odaklayıp yakınlaştırır." },
-        { q: "Dışa Aktar (Export) ne işe yarar?", a: "Tasarımı .STL veya .OBJ olarak kaydeder." },
-        { q: "İçe Aktar (Import) ne işe yarar?", a: "Bilgisayardaki bir dosyayı Tinkercad alanına yükler." },
-
-        // İpuçları
-        { q: "Orantılı Büyütme nasıl yapılır?", a: "Boyut değiştirirken Shift tuşuna basılı tutularak." },
-        { q: "Merkezden Büyütme nasıl yapılır?", a: "Boyut değiştirirken Alt tuşuna basılı tutularak." },
-        { q: "Nesneyi yukarı (Z ekseninde) kaldırma kısayolu nedir?", a: "Ctrl + Yukarı Ok tuşları." },
-        { q: "Hassas Hareket için neye dikkat edilmelidir?", a: "Izgara hassasiyetine (Snap Grid) ayarına." }
+        { q: "\"Cetvel\" (Ruler) aracı tasarımda ne sağlar?", a: "Kesin ölçü ve koordinat gösterir, hassas yerleştirme sağlar." },
+        { q: "\"Aynala\" (Mirror) komutu ne işe yarar?", a: "Nesnenin tam ters yansımasını (simetrisini) oluşturur." },
+        { q: "\"Çalışma Düzlemi\" (Workplane) nereye yerleştirilirse?", a: "Yerleştirilen yüzey yeni ana zemin olur." },
+        { q: "3D Yazıcı En Yaygın Dosya Formatı?", a: ".STL formatıdır." },
+        { q: "Kopyala - Yapıştır:", a: "Ctrl+C ve Ctrl+V" },
+        { q: "Geri Al - İleri Al:", a: "Ctrl+Z ve Ctrl+Y" },
+        { q: "Gruplandır - Grubu Çöz:", a: "Ctrl+G ve Ctrl+Shift+G" },
+        { q: "Hizala - Aynala:", a: "L ve M tuşları" },
+        { q: "Tümünü Sığdır (Yakınlaştır):", a: "F tuşu" }
     ],
     quizzes: [
-        {
-            q: "Tinkercad'de nesneleri gruplandırmak için hangi kısayol kullanılır?",
-            options: ["Ctrl + G", "Ctrl + D", "Ctrl + C", "Ctrl + Shift + G"],
-            correct: 0
-        },
-        {
-            q: "Hangi araç nesnelerin birbirine olan uzaklığını rakamsal olarak görmemizi sağlar?",
-            options: ["Hizala", "Aynala", "Cetvel", "Çalışma Düzlemi"],
-            correct: 2
-        },
-        {
-            q: "Ctrl + D (Duplicate) komutunun kopyala-yapıştırdan en önemli farkı nedir?",
-            options: ["Sadece kopyalar", "Nesneyi siler", "Sonraki hareketleri hafızaya alıp tekrarlar", "Renkleri değiştirir"],
-            correct: 2
-        },
-        {
-            q: "Görünüm Küpü ne işe yarar?",
-            options: ["Nesneyi siler", "Tasarıma farklı açılardan bakmayı sağlar", "Nesneyi büyütür", "Dosyayı kaydeder"],
-            correct: 1
-        },
-        {
-            q: "Orantılı büyütme yapmak için hangi tuş basılı tutulmalıdır?",
-            options: ["Alt", "Ctrl", "Shift", "Tab"],
-            correct: 2
-        },
-        {
-            q: "Nesneyi Z ekseninde (havaya) kaldırmak için hangi kombinasyon kullanılır?",
-            options: ["Ctrl + Sol Ok", "Ctrl + Sağ Ok", "Ctrl + Yukarı Ok", "Ctrl + Alt"],
-            correct: 2
-        },
-        {
-            q: "Gruplandırılan nesnelerin orijinal renklerini korumak için hangi menü kullanılır?",
-            options: ["Delik Menüsü", "Katı -> Çok Renkli", "Görünüm Menüsü", "Cetvel Ayarları"],
-            correct: 1
-        }
+        { q: "Gruplandırma kısayolu nedir?", options: ["Ctrl+G", "Ctrl+D", "Ctrl+C", "L"], correct: 0 },
+        { q: "Hassas ölçüm yapan araç?", options: ["Hizala", "Cetvel", "Ayna", "Küp"], correct: 1 },
+        { q: "Hizalama tuşu hangisidir?", options: ["L", "M", "W", "R"], correct: 0 },
+        { q: "Aynalama tuşu hangisidir?", options: ["L", "M", "W", "R"], correct: 1 },
+        { q: "Ekrana her şeyi sığdırma (odaklama) tuşu?", options: ["F", "G", "H", "J"], correct: 0 }
     ]
 };
 
-let currentCardIndex = 0;
-let currentQuizIndex = 0;
-let score = 0;
+let currentIndex = 0;
+let quizScore = 0;
 
-// Initialize app
+// Initialize
 document.addEventListener('DOMContentLoaded', () => {
+    initButtons();
+    updateStats();
+    // Default to welcome
     showView('welcome');
-    setupNav();
-    setTheme('winter');
 });
 
-function setupNav() {
-    document.getElementById('btn-home').onclick = () => showView('welcome');
-    document.getElementById('btn-cards').onclick = () => {
-        showView('cards');
-        renderCard();
-    };
-    document.getElementById('btn-quiz').onclick = () => {
-        showView('quiz');
-        renderQuiz();
-    };
-    document.getElementById('btn-info').onclick = () => showInfo();
+function initButtons() {
+    const btnHome = document.getElementById('btn-home');
+    const btnCards = document.getElementById('btn-cards');
+    const btnQuiz = document.getElementById('btn-quiz');
+    const btnInfo = document.getElementById('btn-info');
+
+    if (btnHome) btnHome.onclick = () => showView('welcome');
+    if (btnCards) btnCards.onclick = () => { currentIndex = 0; showView('cards'); renderCard(); };
+    if (btnQuiz) btnQuiz.onclick = () => { currentIndex = 0; quizScore = 0; showView('quiz'); renderQuiz(); };
+    if (btnInfo) btnInfo.onclick = () => alert("TİNKERCAD HAZIRLIK PORTALI\nGeliştiren: Fatih PATIR\nfatihpatir.github.io/web");
 }
 
-function showView(viewId) {
-    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+function showView(id) {
+    // Hide all views
+    document.querySelectorAll('.view').forEach(v => {
+        v.style.display = 'none';
+        v.classList.remove('active');
+    });
 
-    let target = document.getElementById(viewId);
-    if (!target) {
-        target = document.createElement('section');
-        target.id = viewId;
-        target.className = 'view';
-        document.getElementById('main-content').appendChild(target);
+    // Deactivate all nav buttons
+    document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+
+    const target = document.getElementById(id);
+    if (target) {
+        target.style.display = 'block';
+        // Minor delay for animation to catch up
+        setTimeout(() => target.classList.add('active'), 20);
+
+        const btn = document.getElementById('btn-' + id);
+        if (btn) btn.classList.add('active');
     }
-
-    target.classList.add('active');
-    const btn = document.getElementById(`btn-${viewId}`);
-    if (btn) btn.classList.add('active');
 }
 
-// Flashcard Logic
-function renderCard() {
-    const view = document.getElementById('cards');
-    const card = content.flashcards[currentCardIndex];
+window.renderCard = function () {
+    const container = document.getElementById('cards');
+    const item = content.flashcards[currentIndex];
 
-    view.innerHTML = `
-        <h3 style="margin-bottom:10px">Flash Kartlar (${currentCardIndex + 1}/${content.flashcards.length})</h3>
+    container.innerHTML = `
+        <div class="hero-card">
+            <h2 style="font-size:1.2rem; margin-bottom:0">Flash Kart ${currentIndex + 1} / ${content.flashcards.length}</h2>
+        </div>
         <div id="card-container">
             <div class="flashcard" onclick="this.classList.toggle('flipped')">
-                <div class="card-front">
-                    <p style="font-size: 1.2rem; font-weight: bold;">${card.q}</p>
-                    <small style="margin-top: 2rem; color: #666;">Cevabı görmek için tıkla</small>
+                <div class="card-face card-front">
+                    <p style="font-size:1.5rem; font-weight:800; color:#fff">${item.q}</p>
+                    <span style="margin-top:20px; font-size:0.9rem; opacity:0.8; color:#aaa">Cevap için kartı çevir</span>
                 </div>
-                <div class="card-back">
-                    <p style="font-size: 1.1rem;">${card.a}</p>
+                <div class="card-face card-back">
+                    <p style="font-size:1.3rem; font-weight:700; color:#000">${item.a}</p>
                 </div>
             </div>
         </div>
-        <div class="card-buttons">
-            <button class="action-btn" onclick="prevCard()" ${currentCardIndex === 0 ? 'style="opacity:0.5"' : ''}>Geri</button>
-            <button class="action-btn" onclick="nextCard()">Sıradaki</button>
+        <div class="controls">
+            <button class="btn btn-alt" onclick="moveCard(-1)">◀ Geri</button>
+            <button class="btn btn-main" onclick="moveCard(1)">Sıradaki ▶</button>
         </div>
     `;
-}
+};
 
-window.nextCard = () => {
-    currentCardIndex = (currentCardIndex + 1) % content.flashcards.length;
+window.moveCard = (dir) => {
+    currentIndex = (currentIndex + dir + content.flashcards.length) % content.flashcards.length;
+    if (dir > 0) {
+        let l = parseInt(localStorage.getItem('btu_learned') || 0);
+        localStorage.setItem('btu_learned', l + 1);
+        updateStats();
+    }
     renderCard();
 };
 
-window.prevCard = () => {
-    if (currentCardIndex > 0) {
-        currentCardIndex--;
-        renderCard();
-    }
-};
-
-// Quiz Logic
 function renderQuiz() {
-    const view = document.getElementById('quiz');
-    if (currentQuizIndex >= content.quizzes.length) {
-        view.innerHTML = `
-            <div style="text-align: center; padding: 2rem;">
+    const container = document.getElementById('quiz');
+    if (currentIndex >= content.quizzes.length) {
+        let best = parseInt(localStorage.getItem('btu_score') || 0);
+        if (quizScore > best) localStorage.setItem('btu_score', quizScore);
+        updateStats();
+        container.innerHTML = `
+            <div class="hero-card" style="text-align:center">
                 <h2>Test Bitti!</h2>
-                <div style="font-size: 3rem; margin: 1rem 0;">🎯</div>
-                <p>Doğru Sayısı: <strong>${score}</strong> / ${content.quizzes.length}</p>
-                <button class="action-btn" style="margin-top: 1.5rem" onclick="resetQuiz()">Tekrar Dene</button>
-            </div>
-        `;
+                <p style="font-size:2rem; margin:15px 0;">🎯 ${quizScore} / ${content.quizzes.length}</p>
+                <button class="btn btn-main" style="width:100%" onclick="resetQuiz()">Tekrar Başla</button>
+            </div>`;
         return;
     }
 
-    const q = content.quizzes[currentQuizIndex];
-    view.innerHTML = `
-        <h3>Test (${currentQuizIndex + 1}/${content.quizzes.length})</h3>
-        <div class="quiz-card" style="padding: 1.5rem; margin-top: 1rem;">
-            <p style="font-size: 1.1rem; font-weight: 600; margin-bottom: 1.5rem;">${q.q}</p>
-            <div class="options">
-                ${q.options.map((opt, i) => `
-                    <button class="option-btn" onclick="checkAnswer(${i}, this)">${opt}</button>
-                `).join('')}
-            </div>
+    const q = content.quizzes[currentIndex];
+    container.innerHTML = `
+        <div class="hero-card">
+            <h2 style="font-size:1.2rem; margin-bottom:0">Soru ${currentIndex + 1} / ${content.quizzes.length}</h2>
         </div>
+        <div class="stat-box" style="margin-bottom:20px; background:rgba(255,255,255,0.1)">
+            <p style="font-size:1.4rem; font-weight:800; color:#fff">${q.q}</p>
+        </div>
+        ${q.options.map((opt, i) => `
+            <button class="btn btn-alt" style="width:100%; text-align:left; margin-bottom:12px; font-size:1.1rem;" id="opt-${i}" onclick="checkAnswer(${i})">
+                ${opt}
+            </button>
+        `).join('')}
     `;
 }
 
-window.resetQuiz = () => {
-    currentQuizIndex = 0;
-    score = 0;
-    renderQuiz();
-};
+window.checkAnswer = (idx) => {
+    const q = content.quizzes[currentIndex];
+    const btns = document.querySelectorAll('#quiz .btn');
+    btns.forEach(b => b.disabled = true);
 
-window.checkAnswer = (idx, btn) => {
-    const q = content.quizzes[currentQuizIndex];
-    const buttons = document.querySelectorAll('.option-btn');
-    buttons.forEach(b => b.disabled = true);
-
+    const selectedBtn = document.getElementById('opt-' + idx);
     if (idx === q.correct) {
-        btn.classList.add('correct');
-        score++;
+        selectedBtn.classList.add('correct');
+        quizScore++;
     } else {
-        btn.classList.add('wrong');
-        buttons[q.correct].classList.add('correct');
+        selectedBtn.classList.add('wrong');
+        document.getElementById('opt-' + q.correct).classList.add('correct');
     }
 
     setTimeout(() => {
-        currentQuizIndex++;
+        currentIndex++;
         renderQuiz();
     }, 1500);
 };
 
-// Theme Logic
-window.setTheme = (theme) => {
-    document.body.className = '';
-    document.body.classList.add(`theme-${theme}`);
-    createParticles(theme);
+window.resetQuiz = () => { currentIndex = 0; quizScore = 0; renderQuiz(); };
+window.setTheme = (n) => {
+    document.body.className = 'theme-' + n;
+    localStorage.setItem('btu_theme', n);
 };
 
-function createParticles(theme) {
-    const container = document.getElementById('particles-container');
-    container.innerHTML = '';
-
-    let count = 0;
-    let type = '';
-    let emoji = '';
-
-    if (theme === 'winter') { count = 40; type = 'snowflake'; emoji = '❄'; }
-    else if (theme === 'spring') { count = 80; type = 'rain-drop'; }
-    else if (theme === 'autumn') { count = 30; type = 'leaf'; }
-
-    for (let i = 0; i < count; i++) {
-        const p = document.createElement('div');
-        p.className = `particle ${type}`;
-        if (emoji) p.innerText = emoji;
-
-        p.style.left = Math.random() * 100 + 'vw';
-        const duration = Math.random() * 3 + 2;
-        p.style.animation = `fall ${duration}s linear infinite, drift ${duration / 2}s ease-in-out infinite`;
-        p.style.animationDelay = Math.random() * 5 + 's';
-
-        if (theme === 'autumn') {
-            const colors = ['#d97706', '#9a3412', '#7c2d12', '#b45309'];
-            p.style.background = colors[Math.floor(Math.random() * colors.length)];
-        }
-
-        container.appendChild(p);
-    }
-}
-
-// Info Modal
-function showInfo() {
-    alert("BTU - Bilgisayarlı Tasarım Uygulamaları\nKorkuteli Nene Hatun MTAL\n\nGeliştiren: Fatih PATIR\nÜnvan: Bilgisayar Öğretmeni\nWeb: fatihpatir.github.io/web\n\nBu uygulama PWA olarak tasarlanmıştır. Tarayıcı ayarlarından 'Ana Ekrana Ekle' diyerek telefonunuza yükleyebilirsiniz.");
+function updateStats() {
+    const l = localStorage.getItem('btu_learned') || 0;
+    const s = localStorage.getItem('btu_score') || 0;
+    if (document.getElementById('learned-count')) document.getElementById('learned-count').innerText = l;
+    if (document.getElementById('quiz-score')) document.getElementById('quiz-score').innerText = s;
 }

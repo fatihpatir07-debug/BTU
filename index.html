@@ -5,68 +5,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BTU | Korkuteli Nene Hatun MTAL</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#2563eb">
 </head>
 
-<body class="theme-winter">
+<body class="theme-1">
     <div id="app">
         <header>
-            <div class="school-header">
-                <img src="logo.png" alt="Logo" class="logo" onerror="this.style.display='none'">
-                <h1>Korkuteli Nene Hatun MTAL</h1>
+            <div id="theme-picker">
+                <div class="theme-btn" style="background:#fff" onclick="setTheme(1)"></div>
+                <div class="theme-btn" style="background:#0ea5e9" onclick="setTheme(2)"></div>
+                <div class="theme-btn" style="background:#f97316" onclick="setTheme(3)"></div>
             </div>
-            <nav>
-                <button id="btn-home" class="nav-btn active">Ana Sayfa</button>
-                <button id="btn-cards" class="nav-btn">Flash Kartlar</button>
-                <button id="btn-quiz" class="nav-btn">Test Çöz</button>
-                <button id="btn-info" class="nav-btn">Bilgi</button>
-            </nav>
+            <div class="school-header">
+                <h1>BTU TASARIM</h1>
+                <p>Korkuteli Nene Hatun MTAL</p>
+            </div>
         </header>
 
         <main id="main-content">
-            <!-- Content will be injected here -->
+            <!-- Giriş -->
             <section id="welcome" class="view">
-                <h2>BİLGİSAYARLI TASARIM (TİNKERCAD)</h2>
-                <p>9. Sınıf 1. Dönem 2. Yazılı Hazırlık Uygulaması</p>
+                <div class="hero-card">
+                    <h2 style="font-size: 1.8rem; margin-bottom: 10px;">Hoş Geldin!</h2>
+                    <p style="font-size: 1.2rem; line-height: 1.4;">Tinkercad 1. Dönem 2. Yazılı portalı. Alt menüden
+                        Kartlar'a bas ve öğrenmeye başla!</p>
+                </div>
+
                 <div class="stats-grid">
-                    <div class="stat-card">
-                        <span class="stat-value">0</span>
-                        <span class="stat-label">Öğrenilen Kart</span>
+                    <div class="stat-box">
+                        <span class="stat-val" id="learned-count">0</span>
+                        <span class="stat-lbl">Çalışılan</span>
                     </div>
-                    <div class="stat-card">
-                        <span class="stat-value">0</span>
-                        <span class="stat-label">Başarılı Test</span>
+                    <div class="stat-box">
+                        <span class="stat-val" id="quiz-score">0</span>
+                        <span class="stat-lbl">En İyi Skor</span>
                     </div>
                 </div>
+
+                <div style="margin-top: 40px; text-align: center;">
+                    <img src="logo.png" style="width: 140px; border-radius: 20px; border: 2px solid white;"
+                        onerror="this.style.display='none'">
+                </div>
             </section>
+
+            <!-- Kartlar Sayfası -->
+            <section id="cards" class="view"></section>
+
+            <!-- Test Sayfası -->
+            <section id="quiz" class="view"></section>
         </main>
 
-        <div id="theme-selector">
-            <button onclick="setTheme('winter')" title="Kış">❄️</button>
-            <button onclick="setTheme('autumn')" title="Sonbahar">🍂</button>
-            <button onclick="setTheme('spring')" title="İlkbahar">🌸</button>
-            <button onclick="setTheme('summer')" title="Yaz">☀️</button>
-        </div>
+        <nav>
+            <button id="btn-home" class="nav-item"> Giriş </button>
+            <button id="btn-cards" class="nav-item"> Kartlar </button>
+            <button id="btn-quiz" class="nav-item"> Test </button>
+            <button id="btn-info" class="nav-item"> Bilgi </button>
+        </nav>
 
         <footer>
-            <p>Geliştiren: <a href="https://fatihpatir.github.io/web" target="_blank" id="dev-link">Fatih PATIR</a></p>
+            Geliştiren: <a href="https://fatihpatir.github.io/web" target="_blank">Fatih PATIR</a>
+        </footer>
     </div>
-    </div>
-
-    <!-- Effects Overlay -->
-    <div id="particles-container"></div>
 
     <script src="app.js"></script>
-    <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js');
-        }
-    </script>
 </body>
 
 </html>
